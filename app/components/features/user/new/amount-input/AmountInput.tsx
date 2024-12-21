@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from '~/components/ui/popover';
 import { Minus, Plus } from 'lucide-react';
+import { useAmountInput } from './useAmountInput';
 
 type AmountInput = {
   label: string;
@@ -37,16 +38,11 @@ export const AmountInput = (props: AmountInputProps) => {
     onChange,
   } = props;
 
+  const { formatValue } = useAmountInput({ allowDecimal });
+
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState(formatValue(value));
   const inputRef = useRef<HTMLInputElement>(null);
-
-  function formatValue(val: number | null | undefined): string {
-    if (val === null || val === undefined || isNaN(val)) {
-      return '0';
-    }
-    return allowDecimal ? val.toFixed(1) : val.toString();
-  }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
