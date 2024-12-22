@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 type UseAmountInputProps = {
   allowDecimal?: boolean;
-  max: number;
+  maxValue: number;
   onChange: (value: number) => void;
 };
 
 export const useAmountInput = ({
   allowDecimal = false,
-  max,
+  maxValue: maxValue,
   onChange,
 }: UseAmountInputProps) => {
   /**
@@ -21,14 +21,14 @@ export const useAmountInput = ({
     if (val === null || val === undefined || isNaN(val)) {
       return '0';
     }
-    return allowDecimal ? val.toFixed(1) : val.toString();
+    return allowDecimal ? val.toFixed(1) : val.toFixed(0);
   };
 
   const [inputValue, setInputValue] = useState(formatValue(0));
 
   const handleValueChange = (newValue: number) => {
     const valueToUse = isNaN(newValue) ? 0 : newValue;
-    const clampedValue = Math.min(Math.max(0, valueToUse), max);
+    const clampedValue = Math.min(Math.max(0, valueToUse), maxValue);
     const finalValue = allowDecimal
       ? Number(clampedValue.toFixed(1))
       : Math.round(clampedValue);

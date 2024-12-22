@@ -15,7 +15,7 @@ import { useAmountInput } from './useAmountInput';
 type AmountInput = {
   label: string;
   value: number;
-  max: number;
+  maxValue: number;
   step: number;
   quickAdjustValues: number[];
   icon: React.ReactNode;
@@ -30,7 +30,7 @@ export const AmountInput = (props: AmountInputProps) => {
   const {
     label,
     value,
-    max,
+    maxValue: maxValue,
     step,
     quickAdjustValues,
     icon,
@@ -39,7 +39,7 @@ export const AmountInput = (props: AmountInputProps) => {
   } = props;
 
   const { formatValue, inputValue, setInputValue, handleValueChange } =
-    useAmountInput({ allowDecimal, max, onChange });
+    useAmountInput({ allowDecimal, maxValue: maxValue, onChange });
 
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -122,7 +122,7 @@ export const AmountInput = (props: AmountInputProps) => {
                     onKeyDown={handleKeyDown}
                     className="w-24 pr-6 text-center text-lg"
                     min={0}
-                    max={max}
+                    max={maxValue}
                     step={step}
                   />
                   <span className="text-muted-foreground absolute right-2 top-1/2 -translate-y-1/2 text-sm">
@@ -133,7 +133,7 @@ export const AmountInput = (props: AmountInputProps) => {
                   variant="outline"
                   size="icon"
                   onClick={() => handleValueChange(value + step)}
-                  disabled={value >= max}
+                  disabled={value >= maxValue}
                   className="h-10 w-10"
                 >
                   <Plus className="h-4 w-4" />
@@ -144,13 +144,13 @@ export const AmountInput = (props: AmountInputProps) => {
                 <Slider
                   value={[value]}
                   onValueChange={([v]) => handleValueChange(v)}
-                  max={max}
+                  max={maxValue}
                   step={step}
                   className="w-full"
                 />
                 <div className="text-muted-foreground flex justify-between text-sm">
                   <span>0g</span>
-                  <span>{max}g</span>
+                  <span>{maxValue}g</span>
                 </div>
               </div>
 
