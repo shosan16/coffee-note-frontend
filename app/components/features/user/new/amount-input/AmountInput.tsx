@@ -38,10 +38,10 @@ export const AmountInput = (props: AmountInputProps) => {
     onChange,
   } = props;
 
-  const { formatValue } = useAmountInput({ allowDecimal });
+  const { formatValue, inputValue, setInputValue, handleValueChange } =
+    useAmountInput({ allowDecimal, max, onChange });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [inputValue, setInputValue] = useState(formatValue(value));
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -50,16 +50,6 @@ export const AmountInput = (props: AmountInputProps) => {
       handleValueChange(isNaN(parsed) ? 0 : parsed);
       setIsOpen(false);
     }
-  };
-
-  const handleValueChange = (newValue: number) => {
-    const valueToUse = isNaN(newValue) ? 0 : newValue;
-    const clampedValue = Math.min(Math.max(0, valueToUse), max);
-    const finalValue = allowDecimal
-      ? Number(clampedValue.toFixed(1))
-      : Math.round(clampedValue);
-    onChange(finalValue);
-    setInputValue(formatValue(finalValue));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
