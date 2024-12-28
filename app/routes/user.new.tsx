@@ -68,7 +68,7 @@ export default function New() {
               label="Bean"
               value={coffeeAmount}
               onChange={setCoffeeAmount}
-              max={50}
+              maxValue={50}
               step={0.1}
               quickAdjustValues={[15, 20, 25, 30, 35, 40]}
               icon={<Bean className="text-primary h-4 w-4" />}
@@ -80,7 +80,7 @@ export default function New() {
               label="Water"
               value={waterAmount}
               onChange={setWaterAmount}
-              max={1000}
+              maxValue={1000}
               step={5}
               quickAdjustValues={[150, 200, 250, 300, 350, 400, 450, 500, 600]}
               icon={<Droplet className="text-primary h-4 w-4" />}
