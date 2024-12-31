@@ -38,19 +38,21 @@ export const AmountInput = (props: AmountInputProps) => {
     onChange,
   } = props;
 
-  const { formatValue, inputValue, setInputValue, handleValueChange } =
-    useAmountInput({ allowDecimal, maxValue: maxValue, onChange });
+  const {
+    formatValue,
+    inputValue,
+    setInputValue,
+    handleValueChange,
+    handleEnterKeyDown,
+  } = useAmountInput({
+    allowDecimal,
+    maxValue,
+    onChange,
+    onEnter: () => setIsOpen(false),
+  });
 
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      const parsed = parseFloat(inputValue);
-      handleValueChange(isNaN(parsed) ? 0 : parsed);
-      setIsOpen(false);
-    }
-  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -119,7 +121,7 @@ export const AmountInput = (props: AmountInputProps) => {
                     value={inputValue}
                     onChange={handleInputChange}
                     onBlur={handleInputBlur}
-                    onKeyDown={handleKeyDown}
+                    onKeyDown={handleEnterKeyDown}
                     className="w-24 pr-6 text-center text-lg"
                     min={0}
                     max={maxValue}
