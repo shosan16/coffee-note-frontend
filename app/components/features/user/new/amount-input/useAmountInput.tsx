@@ -4,12 +4,14 @@ type UseAmountInputProps = {
   allowDecimal?: boolean;
   maxValue: number;
   onChange: (value: number) => void;
+  onEnter: () => void;
 };
 
 export const useAmountInput = ({
   allowDecimal = false,
-  maxValue: maxValue,
+  maxValue,
   onChange,
+  onEnter,
 }: UseAmountInputProps) => {
   /**
    * 数値をフォーマットする関数。
@@ -36,10 +38,24 @@ export const useAmountInput = ({
     setInputValue(formatValue(finalValue));
   };
 
+  /**
+   * Enterキー押下時の処理を行う関数。
+   *
+   * @param {React.KeyboardEvent<HTMLInputElement>} e - キーボードイベント。
+   */
+  const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const parsed = parseFloat(inputValue);
+      handleValueChange(isNaN(parsed) ? 0 : parsed);
+      onEnter();
+    }
+  };
+
   return {
     formatValue,
     inputValue,
     setInputValue,
     handleValueChange,
+    handleEnterKeyDown,
   };
 };
