@@ -27,10 +27,13 @@ type AmountInputProps = AmountInput & {
 };
 
 export const AmountInput = (props: AmountInputProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const {
     label,
     value,
-    maxValue: maxValue,
+    maxValue,
     step,
     quickAdjustValues,
     icon,
@@ -44,15 +47,14 @@ export const AmountInput = (props: AmountInputProps) => {
     setInputValue,
     handleValueChange,
     handleEnterKeyDown,
+    handleQuickAdjust,
   } = useAmountInput({
     allowDecimal,
     maxValue,
     onChange,
     onEnter: () => setIsOpen(false),
+    inputRef,
   });
-
-  const [isOpen, setIsOpen] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -75,15 +77,6 @@ export const AmountInput = (props: AmountInputProps) => {
       }, 0);
     }
   }, [isOpen]);
-
-  const focusInput = () => {
-    inputRef.current?.focus();
-  };
-
-  const handleQuickAdjust = (quickValue: number) => {
-    handleValueChange(quickValue);
-    focusInput();
-  };
 
   return (
     <div className="space-y-2">
