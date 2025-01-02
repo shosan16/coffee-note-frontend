@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 type UseAmountInputProps = {
+  value: number;
   allowDecimal?: boolean;
   maxValue: number;
   onChange: (value: number) => void;
@@ -10,6 +11,7 @@ type UseAmountInputProps = {
 };
 
 export const useAmountInput = ({
+  value,
   allowDecimal = false,
   maxValue,
   onChange,
@@ -36,12 +38,15 @@ export const useAmountInput = ({
    * 無効な入力の場合
    * formatValue(null) ->'0'
    */
-  const formatValue = (val: number | null | undefined): string => {
-    if (val === null || val === undefined || isNaN(val)) {
-      return '0';
-    }
-    return allowDecimal ? val.toFixed(1) : val.toFixed(0);
-  };
+  const formatValue = useCallback(
+    (val: number | null | undefined): string => {
+      if (val === null || val === undefined || isNaN(val)) {
+        return '0';
+      }
+      return allowDecimal ? val.toFixed(1) : val.toFixed(0);
+    },
+    [allowDecimal],
+  );
 
   const [inputValue, setInputValue] = useState(formatValue(0));
 
@@ -99,6 +104,10 @@ export const useAmountInput = ({
       }, 0);
     }
   }, [isOpen, inputRef]);
+
+  useEffect(() => {
+    setInputValue(formatValue(value));
+  }, [value, allowDecimal, formatValue, setInputValue]);
 
   return {
     formatValue,
