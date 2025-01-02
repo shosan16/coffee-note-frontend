@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type UseAmountInputProps = {
   allowDecimal?: boolean;
@@ -6,6 +6,7 @@ type UseAmountInputProps = {
   onChange: (value: number) => void;
   onEnter: () => void;
   inputRef: React.RefObject<HTMLInputElement>;
+  isOpen: boolean;
 };
 
 export const useAmountInput = ({
@@ -14,6 +15,7 @@ export const useAmountInput = ({
   onChange,
   onEnter,
   inputRef,
+  isOpen,
 }: UseAmountInputProps) => {
   /**
    * 数値をフォーマットして文字列に変換する。
@@ -88,6 +90,15 @@ export const useAmountInput = ({
     handleValueChange(quickValue);
     focusInput();
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+        inputRef.current?.select();
+      }, 0);
+    }
+  }, [isOpen, inputRef]);
 
   return {
     formatValue,
