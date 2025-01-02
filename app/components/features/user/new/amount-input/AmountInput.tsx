@@ -54,6 +54,7 @@ export const AmountInput = (props: AmountInputProps) => {
     onChange,
     onEnter: () => setIsOpen(false),
     inputRef,
+    isOpen,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,16 +68,7 @@ export const AmountInput = (props: AmountInputProps) => {
 
   useEffect(() => {
     setInputValue(formatValue(value));
-  }, [value, allowDecimal]);
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        inputRef.current?.focus();
-        inputRef.current?.select();
-      }, 0);
-    }
-  }, [isOpen]);
+  }, [value, allowDecimal, formatValue, setInputValue]);
 
   return (
     <div className="space-y-2">

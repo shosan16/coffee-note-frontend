@@ -13,6 +13,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
@@ -31,6 +32,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
@@ -47,6 +49,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
@@ -65,6 +68,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
@@ -88,6 +92,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
@@ -111,6 +116,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
@@ -133,6 +139,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
@@ -156,6 +163,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
@@ -200,6 +208,7 @@ describe('useAmountInput', () => {
             onChange,
             onEnter,
             inputRef: { current: null },
+            isOpen: true,
           }),
         );
 
@@ -230,6 +239,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
@@ -253,6 +263,7 @@ describe('useAmountInput', () => {
           onChange,
           onEnter,
           inputRef: { current: null },
+          isOpen: true,
         }),
       );
 
