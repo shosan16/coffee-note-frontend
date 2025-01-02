@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -49,6 +49,7 @@ export const AmountInput = (props: AmountInputProps) => {
     handleEnterKeyDown,
     handleQuickAdjust,
   } = useAmountInput({
+    value,
     allowDecimal,
     maxValue,
     onChange,
@@ -65,10 +66,6 @@ export const AmountInput = (props: AmountInputProps) => {
     const parsed = parseFloat(inputValue);
     handleValueChange(isNaN(parsed) ? 0 : parsed);
   };
-
-  useEffect(() => {
-    setInputValue(formatValue(value));
-  }, [value, allowDecimal, formatValue, setInputValue]);
 
   return (
     <div className="space-y-2">
