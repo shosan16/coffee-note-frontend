@@ -12,6 +12,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
@@ -29,6 +30,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
@@ -44,6 +46,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
@@ -61,6 +64,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
@@ -83,6 +87,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
@@ -105,6 +110,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
@@ -126,6 +132,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
@@ -148,6 +155,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
@@ -191,6 +199,7 @@ describe('useAmountInput', () => {
             maxValue: 100,
             onChange,
             onEnter,
+            inputRef: { current: null },
           }),
         );
 
@@ -220,6 +229,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
@@ -242,6 +252,7 @@ describe('useAmountInput', () => {
           maxValue: 100,
           onChange,
           onEnter,
+          inputRef: { current: null },
         }),
       );
 
