@@ -41,49 +41,67 @@ export const useAmountInput = ({
   const formatValue = useCallback(
     (val: number | null | undefined): string => {
       if (val === null || val === undefined || isNaN(val)) {
-        return '0';
+        return allowDecimal ? '0.0' : '0';
       }
-      return allowDecimal ? val.toFixed(1) : val.toFixed(0);
+      return allowDecimal ? val.toFixed(1) : Math.round(val).toFixed(0);
     },
     [allowDecimal],
   );
 
-  const [inputValue, setInputValue] = useState(formatValue(0));
+  const [inputValue, setInputValue] = useState<string>(formatValue(value));
 
   /**
    * 新しい値を範囲内に丸めて状態を更新し、外部に通知します。
    *
    * @param newValue - 新しく設定する数値
    */
-  const handleValueChange = (newValue: number) => {
-    const valueToUse = isNaN(newValue) ? 0 : newValue;
-    const clampedValue = Math.min(Math.max(0, valueToUse), maxValue);
-    const finalValue = allowDecimal
-      ? Number(clampedValue.toFixed(1))
-      : Math.round(clampedValue);
-    onChange(finalValue);
-    setInputValue(formatValue(finalValue));
+  const handleValueChange = useCallback(
+    (newValue: number) => {
+      const valueToUse = isNaN(newValue) ? 0 : newValue;
+      const clampedValue = Math.min(Math.max(0, valueToUse), maxValue);
+      const finalValue = allowDecimal
+        ? parseFloat(clampedValue.toFixed(1))
+        : Math.round(clampedValue);
+      onChange(finalValue);
+      setInputValue(formatValue(finalValue));
+    },
+    [allowDecimal, formatValue, maxValue, onChange],
+  );
+
+  /**
+   * 入力の変更を処理します。
+   *
+   * @param e - 変更イベント
+   */
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    if (!isNaN(parseFloat(newValue))) {
+      setInputValue(newValue);
+    }
   };
+
+  /**
+   * 入力フィールドのフォーカスが外れたときの処理をします。
+   */
+  const handleInputBlur = useCallback(() => {
+    const parsed = parseFloat(inputValue);
+    handleValueChange(parsed);
+  }, [handleValueChange, inputValue]);
 
   /**
    * Enterキー押下時に値を確定し、登録された関数を呼び出します。
    *
    * @param e - キーボードイベント
    */
-  const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      const parsed = parseFloat(inputValue);
-      handleValueChange(isNaN(parsed) ? 0 : parsed);
-      onEnter();
-    }
-  };
-
-  /**
-   * 入力要素にフォーカスを移動します。
-   */
-  const focusInput = () => {
-    inputRef.current?.focus();
-  };
+  const handleEnterKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        handleInputBlur();
+        onEnter();
+      }
+    },
+    [handleInputBlur, onEnter],
+  );
 
   /**
    * クイック調整ボタンをクリックしたときに呼び出し、
@@ -91,31 +109,49 @@ export const useAmountInput = ({
    *
    * @param quickValue - クイック調整で設定する数値
    */
-  const handleQuickAdjust = (quickValue: number) => {
-    handleValueChange(quickValue);
-    focusInput();
-  };
+  const handleQuickAdjust = useCallback(
+    (quickValue: number) => {
+      handleValueChange(quickValue);
+      if (inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.select();
+      }
+    },
+    [handleValueChange, inputRef],
+  );
 
+  /**
+   * ポップオーバーが開いたときに入力フィールドにフォーカスを移動し、テキストを選択する。
+   */
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
+    if (isOpen && inputRef.current) {
+      const frameId = requestAnimationFrame(() => {
         inputRef.current?.focus();
         inputRef.current?.select();
-      }, 0);
+      });
+      return () => {
+        if (frameId !== undefined) {
+          cancelAnimationFrame(frameId);
+        }
+      };
     }
   }, [isOpen, inputRef]);
 
+  /**
+   * 外部からの `value` や `allowDecimal` の変更に応じて `inputValue` を更新する。
+   */
   useEffect(() => {
     setInputValue(formatValue(value));
-  }, [value, allowDecimal, formatValue, setInputValue]);
+  }, [value, allowDecimal, formatValue]);
 
   return {
     formatValue,
     inputValue,
     setInputValue,
     handleValueChange,
+    handleInputChange,
+    handleInputBlur,
     handleEnterKeyDown,
-    focusInput,
     handleQuickAdjust,
   };
 };
