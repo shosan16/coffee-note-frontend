@@ -8,6 +8,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: false,
           maxValue: 100,
           onChange,
@@ -27,6 +28,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: false,
           maxValue: 100,
           onChange,
@@ -44,6 +46,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: true,
           maxValue: 100,
           onChange,
@@ -63,6 +66,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: false,
           maxValue: 100,
           onChange,
@@ -87,6 +91,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: false,
           maxValue: 100,
           onChange,
@@ -111,6 +116,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: true,
           maxValue: 100,
           onChange,
@@ -134,6 +140,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: true,
           maxValue: 100,
           onChange,
@@ -158,6 +165,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: false,
           maxValue: 100,
           onChange,
@@ -203,6 +211,7 @@ describe('useAmountInput', () => {
         const onEnter = vi.fn();
         const { result } = renderHook(() =>
           useAmountInput({
+            value: 0,
             allowDecimal,
             maxValue: 100,
             onChange,
@@ -234,6 +243,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: true,
           maxValue: 100,
           onChange,
@@ -258,6 +268,7 @@ describe('useAmountInput', () => {
       const onEnter = vi.fn();
       const { result } = renderHook(() =>
         useAmountInput({
+          value: 0,
           allowDecimal: true,
           maxValue: 100,
           onChange,
