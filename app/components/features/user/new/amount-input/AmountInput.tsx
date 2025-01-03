@@ -12,7 +12,7 @@ import {
 import { Minus, Plus } from 'lucide-react';
 import { useAmountInput } from './useAmountInput';
 
-type AmountInput = {
+type AmountInputType = {
   label: string;
   value: number;
   maxValue: number;
@@ -22,30 +22,29 @@ type AmountInput = {
   allowDecimal?: boolean;
 };
 
-type AmountInputProps = AmountInput & {
+type AmountInputProps = AmountInputType & {
   onChange: (value: number) => void;
 };
 
-export const AmountInput = (props: AmountInputProps) => {
+export const AmountInput = ({
+  label,
+  value,
+  maxValue,
+  step,
+  quickAdjustValues,
+  icon,
+  allowDecimal = false,
+  onChange,
+}: AmountInputProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const {
-    label,
-    value,
-    maxValue,
-    step,
-    quickAdjustValues,
-    icon,
-    allowDecimal = false,
-    onChange,
-  } = props;
-
-  const {
     formatValue,
     inputValue,
-    setInputValue,
     handleValueChange,
+    handleInputChange,
+    handleInputBlur,
     handleEnterKeyDown,
     handleQuickAdjust,
   } = useAmountInput({
@@ -57,15 +56,6 @@ export const AmountInput = (props: AmountInputProps) => {
     inputRef,
     isOpen,
   });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleInputBlur = () => {
-    const parsed = parseFloat(inputValue);
-    handleValueChange(isNaN(parsed) ? 0 : parsed);
-  };
 
   return (
     <div className="space-y-2">
@@ -91,7 +81,7 @@ export const AmountInput = (props: AmountInputProps) => {
                   variant="outline"
                   size="icon"
                   onClick={() => handleValueChange(value - step)}
-                  disabled={value <= 0}
+                  disabled={value - step < 0}
                   className="h-10 w-10"
                 >
                   <Minus className="h-4 w-4" />
@@ -117,7 +107,7 @@ export const AmountInput = (props: AmountInputProps) => {
                   variant="outline"
                   size="icon"
                   onClick={() => handleValueChange(value + step)}
-                  disabled={value >= maxValue}
+                  disabled={value + step > maxValue}
                   className="h-10 w-10"
                 >
                   <Plus className="h-4 w-4" />
@@ -139,18 +129,17 @@ export const AmountInput = (props: AmountInputProps) => {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {Array.isArray(quickAdjustValues) &&
-                  quickAdjustValues.map((quickValue) => (
-                    <Button
-                      key={quickValue}
-                      variant={value === quickValue ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => handleQuickAdjust(quickValue)}
-                      className="flex-1"
-                    >
-                      {formatValue(quickValue)}g
-                    </Button>
-                  ))}
+                {quickAdjustValues.map((quickValue) => (
+                  <Button
+                    key={quickValue}
+                    variant={value === quickValue ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => handleQuickAdjust(quickValue)}
+                    className="flex-1"
+                  >
+                    {formatValue(quickValue)}g
+                  </Button>
+                ))}
               </div>
             </CardContent>
           </Card>
