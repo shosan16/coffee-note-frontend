@@ -13,6 +13,7 @@ import { Label } from '~/components/ui/label';
 import { Bean, Droplet, Scale } from 'lucide-react';
 
 import { AmountInput } from '~/components/features/user/new/amount-input/AmountInput';
+import { TimeField } from '~/components/features/user/new/steps-input/time-field/TimeField';
 
 export default function New() {
   // const [title, setTitle] = useState('');
@@ -87,6 +88,16 @@ export default function New() {
             />
           </div>
         </div>
+
+        <TimeField
+          minutes={10}
+          seconds={10}
+          onChange={() => {
+            // updateStep(index, 'minutes', minutes);
+            // updateStep(index, 'seconds', seconds);
+          }}
+          className="w-[120px]"
+        />
 
         {/* アクションボタン */}
         <div className="flex justify-end space-x-4">
