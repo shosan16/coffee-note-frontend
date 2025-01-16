@@ -27,12 +27,12 @@ export const TimeFieldSelect = ({
       {label}
     </label>
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger id={`${label.toLowerCase()}-select`} className="w-full">
+      <SelectTrigger id={`${label.toLowerCase()}-select`}>
         <SelectValue placeholder={label} />
       </SelectTrigger>
       <SelectContent side="bottom">
-        {options.map((option) => (
-          <SelectItem key={option} value={option}>
+        {options.map((option, index) => (
+          <SelectItem key={`${option}-${index}`} value={option}>
             {option}
           </SelectItem>
         ))}

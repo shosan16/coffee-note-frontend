@@ -31,7 +31,6 @@ export const StepItem = ({
           onUpdate(index, 'minutes', minutes);
           onUpdate(index, 'seconds', seconds);
         }}
-        className="w-[120px]"
       />
       <Textarea
         placeholder="Action"
