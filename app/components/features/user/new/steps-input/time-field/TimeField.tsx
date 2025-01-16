@@ -52,13 +52,13 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className={'w-[120px] justify-start text-left font-normal'}
+          className={'w-[200px] justify-center text-left font-normal'}
         >
           <Clock className="mr-2 h-4 w-4" />
           {selectedMinutes}:{selectedSeconds}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-0" align="start" side="bottom">
+      <PopoverContent className="w-80 p-0" align="center" side="bottom">
         <Card className="border-0">
           <CardContent className="p-3">
             <div className="flex justify-between space-x-4">
