@@ -44,6 +44,9 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
     return options;
   };
 
+  const minuteOptions: string[] = useMemo(() => generateTimeOptions(16), []);
+  const secondOptions: string[] = useMemo(() => generateTimeOptions(60, 5), []);
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -63,13 +66,13 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
                 label="Minutes"
                 value={selectedMinutes}
                 onValueChange={handleMinuteChange}
-                options={useMemo(() => generateTimeOptions(16), [])}
+                options={minuteOptions}
               />
               <TimeFieldSelect
                 label="Seconds"
                 value={selectedSeconds}
                 onValueChange={handleSecondChange}
-                options={useMemo(() => generateTimeOptions(60, 5), [])}
+                options={secondOptions}
               />
             </div>
           </CardContent>
