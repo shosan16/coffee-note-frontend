@@ -13,7 +13,13 @@ import { Label } from '~/components/ui/label';
 import { Bean, Droplet, Scale } from 'lucide-react';
 
 import { AmountInput } from '~/components/features/user/new/amount-input/AmountInput';
-import { TimeField } from '~/components/features/user/new/steps-input/time-field/TimeField';
+import { StepsInput } from '~/components/features/user/new/steps-input/StepsInput';
+
+type Step = {
+  minutes: number;
+  seconds: number;
+  action: string;
+};
 
 export default function New() {
   // const [title, setTitle] = useState('');
@@ -25,9 +31,9 @@ export default function New() {
   // const [roastLevel, setRoastLevel] = useState<string>('');
   // const [grindLevel, setGrindLevel] = useState<string>('');
   // const [description, setDescription] = useState('');
-  // const [steps, setSteps] = useState<Step[]>([
-  //   { minutes: 0, seconds: 0, action: '' },
-  // ]);
+  const [steps, setSteps] = useState<Step[]>([
+    { minutes: 0, seconds: 0, action: '' },
+  ]);
 
   useEffect(() => {
     if (coffeeAmount > 0) {
@@ -89,15 +95,7 @@ export default function New() {
           </div>
         </div>
 
-        <TimeField
-          minutes={10}
-          seconds={10}
-          onChange={() => {
-            // updateStep(index, 'minutes', minutes);
-            // updateStep(index, 'seconds', seconds);
-          }}
-          className="w-[120px]"
-        />
+        <StepsInput steps={steps} setSteps={setSteps} />
 
         {/* アクションボタン */}
         <div className="flex justify-end space-x-4">

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { Button } from '~/components/ui/button';
 import { Clock } from 'lucide-react';
 import {
@@ -13,22 +13,16 @@ import { TimeFieldSelect } from './TimeFieldSelect';
 type TimeFieldProps = {
   minutes: number;
   seconds: number;
-  className?: string;
   onChange: (minutes: number, seconds: number) => void;
 };
 
-export const TimeField = ({
-  minutes,
-  seconds,
-  className,
-  onChange,
-}: TimeFieldProps) => {
+export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
   const {
     minutes: selectedMinutes,
     seconds: selectedSeconds,
     handleMinuteChange,
     handleSecondChange,
-  } = useTimeField(minutes, seconds);
+  } = useTimeField(minutes, seconds, onChange);
 
   /**
    * 時間選択のオプションを生成する関数。
@@ -50,19 +44,12 @@ export const TimeField = ({
     return options;
   };
 
-  const minuteOptions: string[] = generateTimeOptions(16);
-  const secondOptions: string[] = generateTimeOptions(60, 5);
-
-  useEffect(() => {
-    onChange(parseInt(selectedMinutes, 10), parseInt(selectedSeconds, 10));
-  }, [selectedMinutes, selectedSeconds, onChange]);
-
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className={`w-[120px] justify-start text-left font-normal ${className}`}
+          className={'w-[120px] justify-start text-left font-normal'}
         >
           <Clock className="mr-2 h-4 w-4" />
           {selectedMinutes}:{selectedSeconds}
@@ -76,13 +63,13 @@ export const TimeField = ({
                 label="Minutes"
                 value={selectedMinutes}
                 onValueChange={handleMinuteChange}
-                options={minuteOptions}
+                options={useMemo(() => generateTimeOptions(16), [])}
               />
               <TimeFieldSelect
                 label="Seconds"
                 value={selectedSeconds}
                 onValueChange={handleSecondChange}
-                options={secondOptions}
+                options={useMemo(() => generateTimeOptions(60, 5), [])}
               />
             </div>
           </CardContent>

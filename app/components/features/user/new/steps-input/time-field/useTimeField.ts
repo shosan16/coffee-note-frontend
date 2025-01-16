@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 /**
  * 時間フィールドのカスタムフック。
@@ -11,39 +11,32 @@ import { useState, useEffect } from 'react';
 export const useTimeField = (
   initialMinutes: number,
   initialSeconds: number,
+  onChange: (minutes: number, seconds: number) => void,
 ) => {
-  const [minutes, setMinutes] = useState(
+  /**
+   * 2桁の文字列に変換して状態を更新する。
+   * 例: `5` → `05`, `12` → `12`
+   */
+  const [minutes, setMinutes] = useState<string>(
     initialMinutes.toString().padStart(2, '0'),
   );
-  const [seconds, setSeconds] = useState(
+
+  /**
+   * 2桁の文字列に変換して状態を更新する。
+   * 例: `5` → `05`, `12` → `12`
+   */
+  const [seconds, setSeconds] = useState<string>(
     initialSeconds.toString().padStart(2, '0'),
   );
 
-  useEffect(() => {
-    setMinutes(initialMinutes.toString().padStart(2, '0'));
-    setSeconds(initialSeconds.toString().padStart(2, '0'));
-  }, [initialMinutes, initialSeconds]);
-
-  /**
-   * 分の値を変更する関数。
-   * 2桁の文字列に変換して状態を更新する。
-   * 例: `5` → `05`, `12` → `12`
-   *
-   * @param minute
-   */
-  const handleMinuteChange = (minute: string) => {
-    setMinutes(minute);
+  const handleMinuteChange = (value: string) => {
+    setMinutes(value);
+    onChange(parseInt(value, 10), parseInt(seconds, 10));
   };
 
-  /**
-   * 秒の値を変更する関数。
-   * 2桁の文字列に変換して状態を更新する。
-   * 例: `5` → `05`, `12` → `12`
-   *
-   * @param second
-   */
-  const handleSecondChange = (second: string) => {
-    setSeconds(second);
+  const handleSecondChange = (value: string) => {
+    setSeconds(value);
+    onChange(parseInt(minutes, 10), parseInt(value, 10));
   };
 
   return {
