@@ -23,13 +23,13 @@ export const StepItem = ({
   onRemove,
 }: StepItemProps) => {
   return (
-    <div key={index} className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2">
       <TimeField
         minutes={step.minutes}
         seconds={step.seconds}
-        onChange={(minutes, seconds) => {
-          onUpdate(index, 'minutes', minutes);
-          onUpdate(index, 'seconds', seconds);
+        onChange={(updatedMinutes, updatedSeconds) => {
+          onUpdate(index, 'minutes', updatedMinutes);
+          onUpdate(index, 'seconds', updatedSeconds);
         }}
       />
       <Textarea

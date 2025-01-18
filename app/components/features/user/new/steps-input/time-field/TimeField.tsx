@@ -17,12 +17,8 @@ type TimeFieldProps = {
 };
 
 export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
-  const {
-    minutes: selectedMinutes,
-    seconds: selectedSeconds,
-    handleMinuteChange,
-    handleSecondChange,
-  } = useTimeField(minutes, seconds, onChange);
+  const { minuteValue, secondValue, handleMinuteChange, handleSecondChange } =
+    useTimeField(minutes, seconds, onChange);
 
   /**
    * 時間選択のオプションを生成する関数。
@@ -31,10 +27,7 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
    * @param interval - オプション間の間隔（例: 5分ごとの選択肢を作る場合は5）
    * @returns 時間のオプション配列（例: ['00', '05', '10', '15']）
    */
-  const generateTimeOptions = (
-    maxValue: number,
-    interval: number = 1,
-  ): string[] => {
+  const generateTimeOptions = (maxValue: number, interval: number = 1) => {
     const options: string[] = [];
     const optionCount: number = Math.ceil(maxValue / interval);
     for (let i = 0; i < optionCount; i++) {
@@ -44,18 +37,21 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
     return options;
   };
 
-  const minuteOptions: string[] = useMemo(() => generateTimeOptions(16), []);
-  const secondOptions: string[] = useMemo(() => generateTimeOptions(60, 5), []);
+  // 0 ~ 15 分
+  const minuteOptions = useMemo(() => generateTimeOptions(16), []);
+  // 0 ~ 59 秒、5秒刻み
+  const secondOptions = useMemo(() => generateTimeOptions(60, 5), []);
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className={'w-[200px] justify-center text-left font-normal'}
+          className="w-[200px] justify-center text-left font-normal"
         >
           <Clock className="mr-2 h-4 w-4" />
-          {selectedMinutes}:{selectedSeconds}
+          {String(minuteValue).padStart(2, '0')}:
+          {String(secondValue).padStart(2, '0')}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-50 p-0" align="center" side="bottom">
@@ -64,17 +60,18 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
             <div className="flex space-x-4">
               <TimeFieldSelect
                 label="Minutes"
-                selectedValue={selectedMinutes}
+                selectedValue={minuteValue}
                 onValueChange={(value) => {
-                  console.log('value:', value);
-                  handleMinuteChange(value);
+                  handleMinuteChange(parseInt(value, 10));
                 }}
                 options={minuteOptions}
               />
               <TimeFieldSelect
                 label="Seconds"
-                selectedValue={selectedSeconds}
-                onValueChange={handleSecondChange}
+                selectedValue={secondValue}
+                onValueChange={(value) => {
+                  handleSecondChange(parseInt(value, 10));
+                }}
                 options={secondOptions}
               />
             </div>

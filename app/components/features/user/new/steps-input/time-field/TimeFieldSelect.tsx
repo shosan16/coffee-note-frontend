@@ -1,6 +1,6 @@
 type TimeFieldSelectProps = {
   label: string;
-  selectedValue: string;
+  selectedValue: number;
   onValueChange: (value: string) => void;
   options: string[];
 };
@@ -25,7 +25,7 @@ export const TimeFieldSelect = ({
       </label>
       <select
         id={`${label}-select`}
-        value={selectedValue}
+        value={String(selectedValue).padStart(2, '0')}
         onChange={(e) => handleValueChange(e.target.value)}
         className="block rounded border border-gray-300 bg-white p-2 pr-8 shadow-sm transition-colors duration-200 hover:border-gray-400 focus:border-gray-700 focus:outline-none focus:ring-gray-700 sm:text-sm"
       >
