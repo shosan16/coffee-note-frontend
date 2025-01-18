@@ -8,7 +8,7 @@ import {
 } from '~/components/ui/popover';
 import { Card, CardContent } from '~/components/ui/card';
 import { useTimeField } from './useTimeField';
-import { TimeFieldSelect2 } from './TimeFieldSelect2';
+import { TimeFieldSelect } from './TimeFieldSelect';
 
 type TimeFieldProps = {
   minutes: number;
@@ -62,7 +62,7 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
         <Card className="border-0">
           <CardContent className="p-3">
             <div className="flex space-x-4">
-              <TimeFieldSelect2
+              <TimeFieldSelect
                 label="Minutes"
                 selectedValue={selectedMinutes}
                 onValueChange={(value) => {
@@ -71,7 +71,7 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
                 }}
                 options={minuteOptions}
               />
-              <TimeFieldSelect2
+              <TimeFieldSelect
                 label="Seconds"
                 selectedValue={selectedSeconds}
                 onValueChange={handleSecondChange}
