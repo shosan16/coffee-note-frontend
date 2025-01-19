@@ -16,6 +16,7 @@ import { AmountInput } from '~/components/features/user/new/amount-input/AmountI
 import { StepsInput } from '~/components/features/user/new/steps-input/StepsInput';
 
 type Step = {
+  id: string;
   minutes: number;
   seconds: number;
   action: string;
@@ -32,7 +33,7 @@ export default function New() {
   // const [grindLevel, setGrindLevel] = useState<string>('');
   // const [description, setDescription] = useState('');
   const [steps, setSteps] = useState<Step[]>([
-    { minutes: 0, seconds: 0, action: '' },
+    { id: '', minutes: 0, seconds: 0, action: '' },
   ]);
 
   useEffect(() => {
