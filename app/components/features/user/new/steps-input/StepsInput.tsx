@@ -15,8 +15,14 @@ type StepsInputProps = {
   setSteps: (steps: Step[]) => void;
 };
 
-export const StepsInput = ({ steps: initialSteps }: StepsInputProps) => {
-  const [steps, addStep, removeStep, updateStep] = useSteps(initialSteps);
+export const StepsInput = ({
+  steps: initialSteps,
+  setSteps,
+}: StepsInputProps) => {
+  const [steps, addStep, removeStep, updateStep] = useSteps(
+    initialSteps,
+    setSteps,
+  );
 
   return (
     <div className="w-full space-y-2">

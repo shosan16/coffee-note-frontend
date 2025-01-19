@@ -53,7 +53,7 @@ export default function New() {
       // roastLevel,
       // grindLevel,
       // description,
-      // steps,
+      steps,
     });
     // TODO: フォームの送信処理（例：サーバーにデータを送信）
   };

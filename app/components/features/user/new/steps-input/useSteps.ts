@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 type Step = {
@@ -9,15 +8,14 @@ type Step = {
 };
 
 export const useSteps = (
-  initialSteps: Step[],
+  steps: Step[],
+  setSteps: (steps: Step[]) => void,
 ): [
   Step[],
   () => void,
   (id: string) => void,
   (id: string, field: keyof Step, value: Step[keyof Step]) => void,
 ] => {
-  const [steps, setSteps] = useState<Step[]>(initialSteps);
-
   const addStep = () => {
     setSteps([...steps, { id: uuid(), minutes: 0, seconds: 0, action: '' }]);
   };
