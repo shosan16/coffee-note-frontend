@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
+
 import { Button } from '~/components/ui/button';
 // import { Input } from '~/components/ui/input';
 // import { Textarea } from '~/components/ui/textarea';
@@ -33,7 +35,7 @@ export default function New() {
   // const [grindLevel, setGrindLevel] = useState<string>('');
   // const [description, setDescription] = useState('');
   const [steps, setSteps] = useState<Step[]>([
-    { id: '', minutes: 0, seconds: 0, action: '' },
+    { id: uuid(), minutes: 0, seconds: 0, action: '' },
   ]);
 
   useEffect(() => {
