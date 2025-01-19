@@ -29,7 +29,7 @@ export const useSteps = (
   const updateStep = (
     id: string,
     field: keyof Step,
-    value: Step[keyof Step],
+    value: number | string,
   ) => {
     const newSteps = [...steps].map((step) => {
       if (step.id === id) {
