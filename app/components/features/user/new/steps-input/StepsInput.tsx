@@ -4,6 +4,7 @@ import { StepItem } from './StepItem';
 import { useSteps } from './useSteps';
 
 type Step = {
+  id: string;
   minutes: number;
   seconds: number;
   action: string;
@@ -14,18 +15,23 @@ type StepsInputProps = {
   setSteps: (steps: Step[]) => void;
 };
 
-export const StepsInput = ({ steps: initialSteps }: StepsInputProps) => {
-  const [steps, addStep, removeStep, updateStep] = useSteps(initialSteps);
+export const StepsInput = ({
+  steps: initialSteps,
+  setSteps,
+}: StepsInputProps) => {
+  const [steps, addStep, removeStep, updateStep] = useSteps(
+    initialSteps,
+    setSteps,
+  );
 
   return (
     <div className="w-full space-y-2">
       <Label>Steps</Label>
       <div className="space-y-3">
-        {steps.map((step, index) => (
+        {steps.map((step) => (
           <StepItem
-            key={index}
+            key={step.id}
             step={step}
-            index={index}
             onUpdate={updateStep}
             onRemove={removeStep}
           />

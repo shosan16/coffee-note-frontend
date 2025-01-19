@@ -1,42 +1,47 @@
-import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 type Step = {
+  id: string;
   minutes: number;
   seconds: number;
   action: string;
 };
 
 export const useSteps = (
-  initialSteps: Step[],
+  steps: Step[],
+  setSteps: (steps: Step[]) => void,
 ): [
   Step[],
   () => void,
-  (index: number) => void,
-  (index: number, field: keyof Step, value: number | string) => void,
+  (id: string) => void,
+  (id: string, field: keyof Step, value: Step[keyof Step]) => void,
 ] => {
-  const [steps, setSteps] = useState<Step[]>(initialSteps);
-
   const addStep = () => {
-    setSteps([...steps, { minutes: 0, seconds: 0, action: '' }]);
+    setSteps([...steps, { id: uuid(), minutes: 0, seconds: 0, action: '' }]);
   };
 
-  const removeStep = (index: number) => {
+  const removeStep = (id: string) => {
     if (steps.length > 1) {
-      setSteps(steps.filter((_, i) => i !== index));
+      setSteps(steps.filter((step) => step.id !== id));
     }
   };
 
   const updateStep = (
-    index: number,
+    id: string,
     field: keyof Step,
-    value: number | string,
+    value: Step[keyof Step],
   ) => {
-    const newSteps = [...steps];
-    if (field === 'minutes' || field === 'seconds') {
-      newSteps[index][field] = Number(value);
-    } else {
-      newSteps[index][field] = value as string;
-    }
+    const newSteps = [...steps].map((step) => {
+      if (step.id === id) {
+        const updatedValue =
+          field === 'minutes' || field === 'seconds' ? Number(value) : value;
+        return {
+          ...step,
+          [field]: updatedValue,
+        };
+      }
+      return step;
+    });
     setSteps(newSteps);
   };
 
