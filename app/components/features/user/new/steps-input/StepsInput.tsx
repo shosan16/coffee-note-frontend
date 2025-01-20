@@ -40,14 +40,19 @@ export const StepsInput = ({
     removeStep(id);
   };
 
+  const handleAdd = () => {
+    addStep();
+  };
+
   return (
     <div className="w-full space-y-2">
       <Label>Steps</Label>
       <div className="space-y-3">
-        {steps.map((step: Step) => (
+        {steps.map((step: Step, index: number) => (
           <StepItem
             key={step.id}
             step={step}
+            isFirst={index === 0}
             onMinutesChange={(newMinutes: string) =>
               handleMinutesChange(step.id, newMinutes)
             }
@@ -61,7 +66,7 @@ export const StepsInput = ({
           />
         ))}
       </div>
-      <Button variant="outline" className="w-full" onClick={addStep}>
+      <Button variant="outline" className="w-full" onClick={() => handleAdd()}>
         <span className="mr-2">+</span>
         Add Step
       </Button>

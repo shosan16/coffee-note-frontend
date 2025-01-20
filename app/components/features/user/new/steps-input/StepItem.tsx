@@ -12,6 +12,7 @@ type Step = {
 
 type StepItemProps = {
   step: Step;
+  isFirst: boolean;
   onMinutesChange: (newMinutes: string) => void;
   onSecondsChange: (newSeconds: string) => void;
   onActionChange: (newAction: string) => void;
@@ -20,6 +21,7 @@ type StepItemProps = {
 
 export const StepItem = ({
   step,
+  isFirst,
   onMinutesChange,
   onSecondsChange,
   onActionChange,
@@ -50,14 +52,19 @@ export const StepItem = ({
         className="min-h-[2.5rem] flex-grow resize-none"
         rows={1}
       />
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => onRemove()}
-        className="h-10 w-10"
-      >
-        <Trash2 className="h-4 w-4" />
-      </Button>
+
+      {!isFirst ? (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => onRemove()}
+          className="h-10 w-10"
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      ) : (
+        <div className="h-10 w-10" />
+      )}
     </div>
   );
 };
