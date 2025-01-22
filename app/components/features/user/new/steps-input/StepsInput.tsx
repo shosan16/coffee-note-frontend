@@ -1,28 +1,13 @@
 import { Button } from '~/components/ui/button';
 import { Label } from '~/components/ui/label';
 import { StepItem } from './StepItem';
-import { useSteps } from './useSteps';
+import { useStepStore, Step } from './useStepStore';
 
-type Step = {
-  id: string;
-  minutes: number;
-  seconds: number;
-  action: string;
-};
-
-type StepsInputProps = {
-  steps: Step[];
-  setSteps: (steps: Step[]) => void;
-};
-
-export const StepsInput = ({
-  steps: initialSteps,
-  setSteps,
-}: StepsInputProps) => {
-  const [steps, addStep, removeStep, updateStep] = useSteps(
-    initialSteps,
-    setSteps,
-  );
+export const StepsInput = () => {
+  const steps = useStepStore((state) => state.steps);
+  const addStep = useStepStore((state) => state.addStep);
+  const removeStep = useStepStore((state) => state.removeStep);
+  const updateStep = useStepStore((state) => state.updateStep);
 
   const handleMinutesChange = (id: string, newMinutes: string) => {
     updateStep(id, 'minutes', parseInt(newMinutes, 10));
