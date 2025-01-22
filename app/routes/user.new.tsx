@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { v4 as uuid } from 'uuid';
-
 import { Button } from '~/components/ui/button';
 // import { Input } from '~/components/ui/input';
 // import { Textarea } from '~/components/ui/textarea';
@@ -13,16 +11,9 @@ import { Button } from '~/components/ui/button';
 // } from '@/components/ui/select';
 import { Label } from '~/components/ui/label';
 import { Bean, Droplet, Scale } from 'lucide-react';
-
 import { AmountInput } from '~/components/features/user/new/amount-input/AmountInput';
 import { StepsInput } from '~/components/features/user/new/steps-input/StepsInput';
-
-type Step = {
-  id: string;
-  minutes: number;
-  seconds: number;
-  action: string;
-};
+import { useStepStore } from '~/components/features/user/new/steps-input/useStepStore';
 
 export default function New() {
   // const [title, setTitle] = useState('');
@@ -34,9 +25,7 @@ export default function New() {
   // const [roastLevel, setRoastLevel] = useState<string>('');
   // const [grindLevel, setGrindLevel] = useState<string>('');
   // const [description, setDescription] = useState('');
-  const [steps, setSteps] = useState<Step[]>([
-    { id: uuid(), minutes: 0, seconds: 0, action: '' },
-  ]);
+  const steps = useStepStore((state) => state.steps);
 
   useEffect(() => {
     if (coffeeAmount > 0) {
@@ -98,7 +87,7 @@ export default function New() {
           </div>
         </div>
 
-        <StepsInput steps={steps} setSteps={setSteps} />
+        <StepsInput />
 
         {/* アクションボタン */}
         <div className="flex justify-end space-x-4">

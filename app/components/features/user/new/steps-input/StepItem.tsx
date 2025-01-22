@@ -2,13 +2,7 @@ import { Button } from '~/components/ui/button';
 import { Textarea } from '~/components/ui/textarea';
 import { Trash2 } from 'lucide-react';
 import { TimeField } from './time-field/TimeField';
-
-type Step = {
-  id: string;
-  minutes: number;
-  seconds: number;
-  action: string;
-};
+import { Step } from './useStepStore';
 
 type StepItemProps = {
   step: Step;
