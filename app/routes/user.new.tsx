@@ -21,7 +21,7 @@ export default function New() {
   const [coffeeAmount, setCoffeeAmount] = useState(0);
   const [waterAmount, setWaterAmount] = useState(0);
   const [dripperName, setDripperName] = useState<string>('');
-  // const [grinderName, setGrinderName] = useState<string>('Light');
+  const [grinderName, setGrinderName] = useState<string>('Light');
   // const [roastLevel, setRoastLevel] = useState<string>('');
   // const [grindLevel, setGrindLevel] = useState<string>('');
   // const [description, setDescription] = useState('');
@@ -39,14 +39,18 @@ export default function New() {
       // title,
       coffeeAmount,
       waterAmount,
+      grinderName,
       dripperName,
-      // grinderName,
       // roastLevel,
       // grindLevel,
       // description,
       steps,
     });
     // TODO: フォームの送信処理（例：サーバーにデータを送信）
+  };
+
+  const handleGrinderNameChange = (value: string) => {
+    setGrinderName(value);
   };
 
   const handleDripperNameChange = (value: string) => {
@@ -65,6 +69,29 @@ export default function New() {
           </Label>
           <div className="text-primary text-2xl font-bold">{ratio}</div>
         </div>
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="grinder">Grinder</Label>
+            <Input
+              id="grinder"
+              placeholder="Grinder"
+              type="text"
+              onChange={(e) => handleGrinderNameChange(e.target.value)}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="dripper">Dripper</Label>
+            <Input
+              id="dripper"
+              placeholder="Dripper"
+              type="text"
+              onChange={(e) => handleDripperNameChange(e.target.value)}
+            />
+          </div>
+        </div>
+
         <div className="grid gap-6 sm:grid-cols-2">
           <div className="space-y-6">
             <AmountInput
@@ -89,16 +116,6 @@ export default function New() {
               icon={<Droplet className="text-primary h-4 w-4" />}
             />
           </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="dripper">Dripper</Label>
-          <Input
-            id="dripper"
-            placeholder="Dripper"
-            type="text"
-            onChange={(e) => handleDripperNameChange(e.target.value)}
-          />
         </div>
 
         <StepsInput />
