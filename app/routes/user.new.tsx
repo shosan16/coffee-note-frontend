@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '~/components/ui/button';
-// import { Input } from '~/components/ui/input';
+import { Input } from '~/components/ui/input';
 // import { Textarea } from '~/components/ui/textarea';
 // import {
 //   Select,
@@ -20,7 +20,7 @@ export default function New() {
   const [ratio, setRatio] = useState('0:0');
   const [coffeeAmount, setCoffeeAmount] = useState(0);
   const [waterAmount, setWaterAmount] = useState(0);
-  // const [dripperName, setDripperName] = useState<string>('Light');
+  const [dripperName, setDripperName] = useState<string>('');
   // const [grinderName, setGrinderName] = useState<string>('Light');
   // const [roastLevel, setRoastLevel] = useState<string>('');
   // const [grindLevel, setGrindLevel] = useState<string>('');
@@ -39,7 +39,7 @@ export default function New() {
       // title,
       coffeeAmount,
       waterAmount,
-      // dripperName,
+      dripperName,
       // grinderName,
       // roastLevel,
       // grindLevel,
@@ -47,6 +47,10 @@ export default function New() {
       steps,
     });
     // TODO: フォームの送信処理（例：サーバーにデータを送信）
+  };
+
+  const handleDripperNameChange = (value: string) => {
+    setDripperName(value);
   };
 
   return (
@@ -85,6 +89,16 @@ export default function New() {
               icon={<Droplet className="text-primary h-4 w-4" />}
             />
           </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="dripper">Dripper</Label>
+          <Input
+            id="dripper"
+            placeholder="Dripper"
+            type="text"
+            onChange={(e) => handleDripperNameChange(e.target.value)}
+          />
         </div>
 
         <StepsInput />
