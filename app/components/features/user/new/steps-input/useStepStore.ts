@@ -19,7 +19,7 @@ export const useStepStore = create<StepStore>((set) => ({
   steps: [{ id: uuid(), minutes: 0, seconds: 0, action: '' }],
 
   addStep: () => {
-    set((state) => ({
+    set((state: StepStore) => ({
       steps: [
         ...state.steps,
         { id: uuid(), minutes: 0, seconds: 0, action: '' },
@@ -36,29 +36,18 @@ export const useStepStore = create<StepStore>((set) => ({
     });
   },
 
-  updateStep: (id, field, value) => {
-    set((state) => {
-      return {
-        steps: state.steps.map((step) => {
-          if (step.id === id) {
-            let newValue;
-            if (field === 'minutes' || field === 'seconds') {
-              newValue = Number(value);
-            } else {
-              newValue = value;
-            }
+  updateStep: (id: string, field: keyof Step, value: Step[keyof Step]) => {
+    set((state: StepStore) => ({
+      steps: state.steps.map((step) => {
+        if (step.id !== id) return step;
 
-            // ステップを更新して返す
-            return {
-              ...step,
-              [field]: newValue,
-            };
-          } else {
-            // 該当しないステップはそのまま返す
-            return step;
-          }
-        }),
-      };
-    });
+        if (field === 'minutes' || field === 'seconds') {
+          return { ...step, [field]: Number(value) };
+        } else {
+          // field === 'action'の場合はvalueがstring型なので、valueをそのまま代入する
+          return { ...step, [field]: value };
+        }
+      }),
+    }));
   },
 }));
