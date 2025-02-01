@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
-// import { Textarea } from '~/components/ui/textarea';
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from '@/components/ui/select';
 import { Label } from '~/components/ui/label';
 import { Bean, Droplet, Scale } from 'lucide-react';
 import { AmountInput } from '~/components/features/user/new/amount-input/AmountInput';
@@ -17,15 +9,11 @@ import { useStepStore } from '~/components/features/user/new/steps-input/useStep
 import { RecipeInputSchema } from '~/components/features/user/new/RecipeInputSchema';
 
 export default function CrateRecipePage() {
-  // const [title, setTitle] = useState('');
   const [ratio, setRatio] = useState('0:0');
   const [coffeeAmount, setCoffeeAmount] = useState(0);
   const [waterAmount, setWaterAmount] = useState(0);
-  const [dripperName, setDripperName] = useState<string>('');
-  const [grinderName, setGrinderName] = useState<string>('');
-  // const [roastLevel, setRoastLevel] = useState<string>('');
-  // const [grindLevel, setGrindLevel] = useState<string>('');
-  // const [description, setDescription] = useState('');
+  const [dripperName, setDripperName] = useState('');
+  const [grinderName, setGrinderName] = useState('');
   const steps = useStepStore((state) => state.steps);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -55,7 +43,7 @@ export default function CrateRecipePage() {
       result.error.errors.forEach(
         (error: { path: (string | number)[]; message: string }) => {
           if (error.path.length > 0) {
-            newErrors[error.path.join('.')] = error.message;
+            newErrors[error.path.join('-')] = error.message;
           }
         },
       );
@@ -64,7 +52,7 @@ export default function CrateRecipePage() {
     }
 
     console.log(formData);
-    // TODO: フォームの送信処理（例：サーバーにデータを送信）
+    // TODO: フォーム送信処理
   };
 
   const handleGrinderNameChange = (value: string) => {
@@ -81,7 +69,6 @@ export default function CrateRecipePage() {
     <div className="mx-auto w-full max-w-screen-lg">
       <form onSubmit={handleSubmit} className="space-y-6">
         <h2>ユーザーレシピ登録画面</h2>
-        {/* コーヒー豆と水の量 */}
         <div className="space-y-2">
           <Label className="flex items-center gap-2">
             <Scale className="h-4 w-4" />
@@ -150,20 +137,9 @@ export default function CrateRecipePage() {
           </div>
         </div>
 
-        <StepsInput />
+        <StepsInput errors={errors} />
 
-        {/* アクションボタン */}
         <div className="flex justify-end space-x-4">
-          {/* 下書き保存ボタン */}
-          <Button
-            type="button"
-            variant="outline"
-            // onClick={handleSaveDraft}
-            className="w-auto px-6"
-          >
-            Save
-          </Button>
-          {/* 提出ボタン */}
           <Button type="submit" className="w-auto px-6">
             Submit
           </Button>

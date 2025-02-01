@@ -7,6 +7,8 @@ import { Step } from './useStepStore';
 type StepItemProps = {
   step: Step;
   isFirst: boolean;
+  index: number;
+  errors: Record<string, string>;
   onMinutesChange: (newMinutes: string) => void;
   onSecondsChange: (newSeconds: string) => void;
   onActionChange: (newAction: string) => void;
@@ -16,6 +18,8 @@ type StepItemProps = {
 export const StepItem = ({
   step,
   isFirst,
+  index,
+  errors,
   onMinutesChange,
   onSecondsChange,
   onActionChange,
@@ -30,22 +34,32 @@ export const StepItem = ({
   };
 
   return (
-    <div className="flex items-center space-x-2">
-      <TimeField
-        minutes={step.minutes}
-        seconds={step.seconds}
-        onChange={(updatedMinutes, updatedSeconds) => {
-          handleMinutesChange(updatedMinutes.toString());
-          handleSecondsChange(updatedSeconds.toString());
-        }}
-      />
-      <Textarea
-        placeholder="Action"
-        value={step.action}
-        onChange={(e) => onActionChange(e.target.value)}
-        className="min-h-[2.5rem] flex-grow resize-none"
-        rows={1}
-      />
+    <div className="flex space-x-2">
+      <div className="pb-2">
+        <TimeField
+          minutes={step.minutes}
+          seconds={step.seconds}
+          onChange={(updatedMinutes, updatedSeconds) => {
+            handleMinutesChange(updatedMinutes.toString());
+            handleSecondsChange(updatedSeconds.toString());
+          }}
+        />
+      </div>
+
+      <div className="w-full pb-2">
+        <Textarea
+          placeholder="Action"
+          value={step.action}
+          onChange={(e) => onActionChange(e.target.value)}
+          className="min-h-[2.5rem] flex-grow resize-none"
+          rows={1}
+        />
+        {errors[`steps-${index}-action`] && (
+          <p className="text-sm text-red-500">
+            {errors[`steps-${index}-action`]}
+          </p>
+        )}
+      </div>
 
       {!isFirst ? (
         <Button
