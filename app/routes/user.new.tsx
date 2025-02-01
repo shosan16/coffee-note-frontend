@@ -14,18 +14,20 @@ import { Bean, Droplet, Scale } from 'lucide-react';
 import { AmountInput } from '~/components/features/user/new/amount-input/AmountInput';
 import { StepsInput } from '~/components/features/user/new/steps-input/StepsInput';
 import { useStepStore } from '~/components/features/user/new/steps-input/useStepStore';
+import { RecipeInputSchema } from '~/components/features/user/new/RecipeInputSchema';
 
-export default function New() {
+export default function CrateRecipePage() {
   // const [title, setTitle] = useState('');
   const [ratio, setRatio] = useState('0:0');
   const [coffeeAmount, setCoffeeAmount] = useState(0);
   const [waterAmount, setWaterAmount] = useState(0);
   const [dripperName, setDripperName] = useState<string>('');
-  const [grinderName, setGrinderName] = useState<string>('Light');
+  const [grinderName, setGrinderName] = useState<string>('');
   // const [roastLevel, setRoastLevel] = useState<string>('');
   // const [grindLevel, setGrindLevel] = useState<string>('');
   // const [description, setDescription] = useState('');
   const steps = useStepStore((state) => state.steps);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     if (coffeeAmount > 0) {
@@ -33,10 +35,10 @@ export default function New() {
       setRatio(`1:${calculatedRatio}`);
     }
   }, [coffeeAmount, waterAmount]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({
-      // title,
+    const formData = {
       coffeeAmount,
       waterAmount,
       grinderName,
@@ -45,16 +47,34 @@ export default function New() {
       // grindLevel,
       // description,
       steps,
-    });
+    };
+
+    const result = RecipeInputSchema.safeParse(formData);
+    if (!result.success) {
+      const newErrors: Record<string, string> = {};
+      result.error.errors.forEach(
+        (error: { path: (string | number)[]; message: string }) => {
+          if (error.path.length > 0) {
+            newErrors[error.path.join('.')] = error.message;
+          }
+        },
+      );
+      setErrors(newErrors);
+      return;
+    }
+
+    console.log(formData);
     // TODO: フォームの送信処理（例：サーバーにデータを送信）
   };
 
   const handleGrinderNameChange = (value: string) => {
     setGrinderName(value);
+    setErrors((prev) => ({ ...prev, grinderName: '' }));
   };
 
   const handleDripperNameChange = (value: string) => {
     setDripperName(value);
+    setErrors((prev) => ({ ...prev, dripperName: '' }));
   };
 
   return (
@@ -79,6 +99,9 @@ export default function New() {
               type="text"
               onChange={(e) => handleGrinderNameChange(e.target.value)}
             />
+            {errors.grinderName && (
+              <p className="text-sm text-red-500">{errors.grinderName}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -89,6 +112,9 @@ export default function New() {
               type="text"
               onChange={(e) => handleDripperNameChange(e.target.value)}
             />
+            {errors.dripperName && (
+              <p className="text-sm text-red-500">{errors.dripperName}</p>
+            )}
           </div>
         </div>
 
@@ -104,6 +130,9 @@ export default function New() {
               icon={<Bean className="text-primary h-4 w-4" />}
               allowDecimal={true}
             />
+            {errors.coffeeAmount && (
+              <p className="text-sm text-red-500">{errors.coffeeAmount}</p>
+            )}
           </div>
           <div className="space-y-6">
             <AmountInput
@@ -115,6 +144,9 @@ export default function New() {
               quickAdjustValues={[150, 200, 250, 300, 350, 400, 450, 500, 600]}
               icon={<Droplet className="text-primary h-4 w-4" />}
             />
+            {errors.waterAmount && (
+              <p className="text-sm text-red-500">{errors.waterAmount}</p>
+            )}
           </div>
         </div>
 
