@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@remix-run/dev": "^2.15.0",
+    "@supabase/ssr": "^0.5.2",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
@@ -60,8 +61,10 @@
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^4.6.2",
     "husky": "^9.1.7",
+    "install": "^0.13.0",
     "jsdom": "^25.0.1",
     "lint-staged": "^15.2.10",
+    "npm": "^10.9.2",
     "postcss": "^8.4.49",
     "prettier": "^3.4.1",
     "prettier-plugin-tailwindcss": "^0.6.9",
