@@ -17,17 +17,14 @@ export const TimeFieldSelect = ({
 
   return (
     <div className="flex flex-col">
-      <label
-        htmlFor={`${label}-select`}
-        className="mb-1 text-sm font-medium text-gray-700"
-      >
+      <label htmlFor={`${label}-select`} className="mb-1 text-sm font-medium">
         {label}
       </label>
       <select
         id={`${label}-select`}
         value={String(selectedValue).padStart(2, '0')}
         onChange={(e) => handleValueChange(e.target.value)}
-        className="block rounded border border-gray-300 bg-black p-2 pr-8 shadow-sm transition-colors duration-200 hover:border-gray-400 focus:border-gray-700 focus:outline-none focus:ring-gray-700 sm:text-sm"
+        className="block rounded border border-gray-300 p-2 pr-8 text-black shadow-sm transition-colors duration-200 hover:border-gray-400 focus:outline-none sm:text-sm"
       >
         {options.map((option, index) => (
           <option key={`option-${index}`} value={option}>
