@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '~/components/ui/select';
+} from '~/shared/components/ui/select';
 
 type TimeFieldSelectProps = {
   label: string;
