@@ -1,5 +1,5 @@
 import type { Recipe } from '../types/recipe';
-import { Card, CardContent, CardTitle } from '~/components/ui/card';
+import { Card, CardContent, CardTitle } from '~/shared/components/ui/card';
 import { Bean, Droplet, Settings } from 'lucide-react';
 
 /**

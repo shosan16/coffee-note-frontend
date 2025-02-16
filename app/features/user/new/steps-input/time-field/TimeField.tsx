@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
-import { Button } from '~/components/ui/button';
+import { Button } from '~/shared/components/ui/button';
 import { Clock } from 'lucide-react';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '~/components/ui/popover';
-import { Card, CardContent } from '~/components/ui/card';
+} from '~/shared/components/ui/popover';
+import { Card, CardContent } from '~/shared/components/ui/card';
 import { useTimeField } from './useTimeField';
 import { TimeFieldSelect } from './TimeFieldSelect';
 

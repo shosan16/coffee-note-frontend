@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '~/components/ui/button';
-import { Input } from '~/components/ui/input';
-import { Label } from '~/components/ui/label';
+import { Button } from '~/shared/components/ui/button';
+import { Input } from '~/shared/components/ui/input';
+import { Label } from '~/shared/components/ui/label';
 import { Bean, Droplet, Scale } from 'lucide-react';
-import { AmountInput } from '~/components/features/user/new/amount-input/AmountInput';
-import { StepsInput } from '~/components/features/user/new/steps-input/StepsInput';
-import { useStepStore } from '~/components/features/user/new/steps-input/useStepStore';
-import { RecipeInputSchema } from '~/components/features/user/new/RecipeInputSchema';
+import { AmountInput } from '~/features/user/new/amount-input/AmountInput';
+import { StepsInput } from '~/features/user/new/steps-input/StepsInput';
+import { useStepStore } from '~/features/user/new/steps-input/useStepStore';
+import { RecipeInputSchema } from '~/features/user/new/RecipeInputSchema';
 
 export default function CrateRecipePage() {
   const [ratio, setRatio] = useState('0:0');

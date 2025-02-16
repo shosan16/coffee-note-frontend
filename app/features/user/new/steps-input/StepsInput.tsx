@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '~/components/ui/button';
-import { Label } from '~/components/ui/label';
+import { Button } from '~/shared/components/ui/button';
+import { Label } from '~/shared/components/ui/label';
 import { StepItem } from './StepItem';
 import { useStepStore, Step } from './useStepStore';
 
