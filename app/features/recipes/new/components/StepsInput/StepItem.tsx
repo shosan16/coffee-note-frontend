@@ -1,8 +1,8 @@
 import { Button } from '~/shared/components/ui/button';
 import { Textarea } from '~/shared/components/ui/textarea';
 import { Trash2 } from 'lucide-react';
-import { TimeField } from './time-field/TimeField';
-import { Step } from './useStepStore';
+import { TimeField } from './TimeField/TimeField';
+import { Step } from '../../stores/useStepStore';
 
 type StepItemProps = {
   step: Step;
