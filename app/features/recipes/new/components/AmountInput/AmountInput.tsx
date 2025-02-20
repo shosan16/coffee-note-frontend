@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from '~/shared/components/ui/popover';
 import { Minus, Plus } from 'lucide-react';
-import { useAmountInput } from './useAmountInput';
+import { useAmountInput } from '~/features/recipes/new/hooks/useAmountInput';
 
 type AmountInputType = {
   label: string;
