@@ -3,10 +3,10 @@ import { Button } from '~/shared/components/ui/button';
 import { Input } from '~/shared/components/ui/input';
 import { Label } from '~/shared/components/ui/label';
 import { Bean, Droplet, Scale } from 'lucide-react';
-import { AmountInput } from '~/features/recipes/new/amount-input/AmountInput';
-import { StepsInput } from '~/features/recipes/new/steps-input/StepsInput';
-import { useStepStore } from '~/features/recipes/new/steps-input/useStepStore';
-import { RecipeInputSchema } from '~/features/recipes/new/RecipeInputSchema';
+import { AmountInput } from '~/features/recipes/new/components/AmountInput/AmountInput';
+import { StepsInput } from '~/features/recipes/new/components/StepsInput/StepsInput';
+import { useStepStore } from '~/features/recipes/new/stores/useStepStore';
+import { RecipeInputSchema } from '~/features/recipes/new/components/RecipeInputSchema';
 
 export default function CrateRecipePage() {
   const [ratio, setRatio] = useState('0:0');
