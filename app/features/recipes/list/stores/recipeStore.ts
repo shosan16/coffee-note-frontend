@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Recipe } from '../types/recipe';
+import type { Recipe } from '~/features/recipes/list/types/recipe';
 
 /**
  * レシピ状態管理ストアの型定義
@@ -17,10 +17,6 @@ type RecipeStore = {
   setRecipes: (recipes: Recipe[]) => void;
 };
 
-/**
- * Zustand を利用したレシピ状態管理フック。
- * このフックは、レシピの一覧およびユーザーが選択したレシピの状態管理を提供する。
- */
 export const useRecipeStore = create<RecipeStore>((set) => ({
   recipes: [],
   selectedRecipe: null,
