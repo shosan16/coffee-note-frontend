@@ -25,10 +25,5 @@ export const useTimeField = (
     onChange(minuteValue, newSeconds);
   };
 
-  return {
-    minuteValue,
-    secondValue,
-    handleMinuteChange,
-    handleSecondChange,
-  };
+  return { minuteValue, secondValue, handleMinuteChange, handleSecondChange };
 };

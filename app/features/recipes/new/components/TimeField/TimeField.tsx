@@ -31,15 +31,12 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
     const options: string[] = [];
     const optionCount: number = Math.ceil(maxValue / interval);
     for (let i = 0; i < optionCount; i++) {
-      const value: string = (i * interval).toString().padStart(2, '0');
-      options.push(value);
+      options.push((i * interval).toString().padStart(2, '0'));
     }
     return options;
   };
 
-  // 0 ~ 15 分
   const minuteOptions = useMemo(() => generateTimeOptions(16), []);
-  // 0 ~ 59 秒、5秒刻み
   const secondOptions = useMemo(() => generateTimeOptions(60, 5), []);
 
   return (
@@ -61,17 +58,17 @@ export const TimeField = ({ minutes, seconds, onChange }: TimeFieldProps) => {
               <TimeFieldSelect
                 label="Minutes"
                 selectedValue={minuteValue}
-                onValueChange={(value) => {
-                  handleMinuteChange(parseInt(value, 10));
-                }}
+                onValueChange={(value) =>
+                  handleMinuteChange(parseInt(value, 10))
+                }
                 options={minuteOptions}
               />
               <TimeFieldSelect
                 label="Seconds"
                 selectedValue={secondValue}
-                onValueChange={(value) => {
-                  handleSecondChange(parseInt(value, 10));
-                }}
+                onValueChange={(value) =>
+                  handleSecondChange(parseInt(value, 10))
+                }
                 options={secondOptions}
               />
             </div>
