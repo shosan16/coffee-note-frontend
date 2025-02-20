@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
 } from '~/shared/components/ui/popover';
 import { Card, CardContent } from '~/shared/components/ui/card';
-import { useTimeField } from './useTimeField';
+import { useTimeField } from '~/features/recipes/new/hooks/useTimeField';
 import { TimeFieldSelect } from './TimeFieldSelect';
 
 type TimeFieldProps = {
