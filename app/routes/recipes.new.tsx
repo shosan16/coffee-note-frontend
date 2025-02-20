@@ -6,7 +6,7 @@ import { Bean, Droplet, Scale } from 'lucide-react';
 import { AmountInput } from '~/features/recipes/new/components/AmountInput/AmountInput';
 import { StepsInput } from '~/features/recipes/new/components/StepsInput/StepsInput';
 import { useStepStore } from '~/features/recipes/new/stores/useStepStore';
-import { RecipeInputSchema } from '~/features/recipes/new/components/RecipeInputSchema';
+import { Recipe } from '~/features/recipes/new/types/recipe';
 
 export default function CrateRecipePage() {
   const [ratio, setRatio] = useState('0:0');
@@ -37,7 +37,7 @@ export default function CrateRecipePage() {
       steps,
     };
 
-    const result = RecipeInputSchema.safeParse(formData);
+    const result = Recipe.safeParse(formData);
     if (!result.success) {
       const newErrors: Record<string, string> = {};
       result.error.errors.forEach(
