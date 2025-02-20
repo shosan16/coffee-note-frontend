@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import type { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData, useNavigate } from '@remix-run/react';
-import type { Recipe } from '~/features/user/list/types/recipe';
-import { useRecipeStore } from '~/features/user/list/stores/recipeStore';
-import { RecipeList } from '~/features/user/list/components/RecipeList';
+import type { Recipe } from '~/features/recipes/list/types/recipe';
+import { useRecipeStore } from '~/features/recipes/list/stores/recipeStore';
+import { RecipeList } from '~/features/recipes/list/components/RecipeList';
 import { createClient } from '~/utils/supabase.server';
 
 /**
@@ -23,7 +23,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
       dripper_name,
       description,
       roast_level,
-      grind_level
+      grind_level,
+      recipe_steps(
+        id,
+        minutes,
+        seconds,
+        action
+      )
     `);
 
   return { recipes };
@@ -37,6 +43,7 @@ export default function RecipeListPage() {
   const { recipes } = useLoaderData<{ recipes: Recipe[] }>();
   const { setRecipes } = useRecipeStore();
   const navigate = useNavigate();
+  console.log('recipes', recipes);
 
   // loader で取得したデータを Zustand のストアに反映
   useEffect(() => {
