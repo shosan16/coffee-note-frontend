@@ -1,19 +1,6 @@
 import { create } from 'zustand';
 import { v4 as uuid } from 'uuid';
-
-export type Step = {
-  id: string;
-  minutes: number;
-  seconds: number;
-  action: string;
-};
-
-type StepStore = {
-  steps: Step[];
-  addStep: () => void;
-  removeStep: (id: string) => void;
-  updateStep: (id: string, field: keyof Step, value: Step[keyof Step]) => void;
-};
+import { Step, StepStore } from '~/features/recipes/new/types/step';
 
 export const useStepStore = create<StepStore>((set) => ({
   steps: [{ id: uuid(), minutes: 0, seconds: 0, action: '' }],

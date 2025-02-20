@@ -1,8 +1,8 @@
 type TimeFieldSelectProps = {
   label: string;
   selectedValue: number;
-  onValueChange: (value: string) => void;
   options: string[];
+  onValueChange: (value: string) => void;
 };
 
 export const TimeFieldSelect = ({

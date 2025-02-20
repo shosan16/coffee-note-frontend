@@ -11,20 +11,7 @@ import {
 } from '~/shared/components/ui/popover';
 import { Minus, Plus } from 'lucide-react';
 import { useAmountInput } from '~/features/recipes/new/hooks/useAmountInput';
-
-type AmountInputType = {
-  label: string;
-  value: number;
-  maxValue: number;
-  step: number;
-  quickAdjustValues: number[];
-  icon: React.ReactNode;
-  allowDecimal?: boolean;
-};
-
-type AmountInputProps = AmountInputType & {
-  onChange: (value: number) => void;
-};
+import { AmountProps } from '~/features/recipes/new/types/amount';
 
 export const AmountInput = ({
   label,
@@ -35,7 +22,7 @@ export const AmountInput = ({
   icon,
   allowDecimal = false,
   onChange,
-}: AmountInputProps) => {
+}: AmountProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
